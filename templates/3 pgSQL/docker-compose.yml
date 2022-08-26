@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  pgsql:
+    image: postgres:12.3-alpine
+    container_name: jira-pgsql
+#    restart: always
+    environment:
+      - POSTGRES_USER=jira
+      - POSTGRES_PASSWORD=pgSQLtest
+      - POSTGRES_DB=jiradb
+      - POSTGRES_ENCODING=UNICODE
+      - POSTGRES_COLLATE=C
+      - POSTGRES_COLLATE_TYPE=C
+      - PGDATA=/var/lib/postgressql/data/pgdata
+    ports:
+      - 5432:5432
+    volumes:
+      - .\pgsql-data:/var/lib/postgressql/data
+#    networks:
+#      - jirastack
+#volumes:
+#  pgsql-data:

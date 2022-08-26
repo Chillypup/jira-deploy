@@ -1,0 +1,25 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+
+  jira-service:
+    depends_on:
+      - jira-pgsql
+    image: atlassian/jira-servicedesk:latest
+    container_name: jira-service
+#    restart: always
+    environment:
+      - JIRA_DATABASE_URL=postgresql://jira@jira-pgsql/jiradb
+      - JIRA_DB_PASSWORD=pgSQLtest
+      - SETENV_JVM_MINIMUM_MEMORY=2048m
+      - SETENV_JVM_MAXIMUM_MEMORY=4096m
+      - JIRA_PROXY_NAME=
+      - JIRA_PROXY_PORT=
+      - JIRA_PROXY_SCHEME=
+    ports:
+      - 80:8080 443:8443
+    volumes:
+      - jiradata:/var/atlassian/application-data/jira
+#    networks:
+#      - jirastack
